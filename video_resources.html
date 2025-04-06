@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Resources - FinGenius AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+    <style>
+        .resource-card {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .resource-card:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+         /* Style for thumbnail images */
+         .resource-card img.thumbnail {
+             display: block;
+             width: 100%;
+             max-width: 480px;
+             height: auto; /* Maintain aspect ratio */
+             min-height: 180px; /* Provide minimum height */
+             border-radius: 8px;
+             margin-bottom: 1rem;
+             border: 1px solid var(--border-color);
+             margin-left: auto;
+             margin-right: auto;
+             background-color: #eee; /* Background shown if src is empty/broken */
+        }
+        .resource-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        .resource-card a {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+        .resource-card a i {
+             vertical-align: middle;
+             margin-left: 4px;
+        }
+         .resource-card.no-thumbnail {
+             /* Styles for playlist cards without images */
+         }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">FinGenius AI</a>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="features.html">Features</a>
+            <a href="chatbot.html">Chatbot</a>
+            <a href="learning_resources.html" class="active">Learning Resources</a>
+            <a href="dashboard.html" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn" id="login-btn">Login</button>
+            <button class="btn btn-secondary" id="signup-btn">Get Started</button>
+            <button class="btn btn-user" id="user-profile-btn" style="display: none;"><i class='bx bxs-user-circle'></i></button>
+        </div>
+        <div class="theme-switcher">
+             <i class='bx bx-sun' id="theme-icon"></i>
+        </div>
+         <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div class="auth-overlay overlay-backdrop" id="auth-overlay">
+        <div class="overlay-container auth-container">
+            <span class="close-btn" id="close-auth-btn">×</span>
+            <div class="auth-box login-box active" id="login-box"><h2>Login</h2>...</div>
+            <div class="auth-box signup-box" id="signup-box-modal"><h2>Sign Up</h2>...</div>
+        </div>
+    </div>
+     <div class="profile-overlay" id="profile-overlay">
+        <div class="profile-container overlay-container">...</div>
+     </div>
+     <main style="padding-top: 120px; padding-bottom: 60px;">
+         <section class="section-light">
+             <div class="container" data-aos="fade-up">
+                 <h2 class="section-title">Learning Resources</h2>
+                 <p class="section-subtitle">Explore these curated videos and playlists to enhance your financial knowledge.</p>
+
+                 <div class="resources-list">
+                     <div class="resource-card" data-aos="fade-up" data-aos-delay="50">
+                         <img src="https://img.youtube.com/vi/AkMTxMN7res/maxresdefault.jpg" alt="Thumbnail for Finance Masterclass" class="thumbnail">
+                         <h3>1. Finance Masterclass</h3>
+                         <a href="https://youtu.be/AkMTxMN7res?si=qdofBoCrBsy4CXPv" target="_blank" rel="noopener noreferrer">Watch here <i class='bx bx-link-external'></i></a>
+                     </div>
+                     <div class="resource-card" data-aos="fade-up" data-aos-delay="100">
+                          <img src="https://img.youtube.com/vi/qIw-yFC-HNU/maxresdefault.jpg" alt="Thumbnail for Basics of Investing" class="thumbnail">
+                         <h3>2. Basics of Investing</h3>
+                         <a href="https://youtu.be/qIw-yFC-HNU?si=RiCqQE8AWuWqYTiF" target="_blank" rel="noopener noreferrer">Watch here <i class='bx bx-link-external'></i></a>
+                     </div>
+                     <div class="resource-card" data-aos="fade-up" data-aos-delay="150">
+                           <img src="https://img.youtube.com/vi/p7HKvqRI_Bo/maxresdefault.jpg" alt="Thumbnail for How Does the Stock Market Work?" class="thumbnail">
+                         <h3>3. How Does the Stock Market Work?</h3>
+                         <a href="https://youtu.be/p7HKvqRI_Bo?si=8ywzgpH6I2yFTalV" target="_blank" rel="noopener noreferrer">Watch here <i class='bx bx-link-external'></i></a>
+                     </div>
+                     <div class="resource-card" data-aos="fade-up" data-aos-delay="200">
+                          <img src="https://img.youtube.com/vi/PbldLCsspgE/maxresdefault.jpg" alt="Thumbnail for What is a Mutual Fund and How Does It Work?" class="thumbnail">
+                         <h3>4. What is a Mutual Fund and How Does It Work?</h3>
+                         <a href="https://youtu.be/PbldLCsspgE?si=oZh-SKS4aGlkoGY4" target="_blank" rel="noopener noreferrer">Watch here <i class='bx bx-link-external'></i></a>
+                     </div>
+                     <div class="resource-card no-thumbnail" data-aos="fade-up" data-aos-delay="250">
+                         <h3>5. Basics of Stock Market – Playlist</h3>
+                         <a href="https://youtube.com/playlist?list=PLFQ0hRWyH11RS4KUPadj6aoC2KtEHVIfN&si=7IC_TOJ-vhT3DXt_" target="_blank" rel="noopener noreferrer">Watch the full playlist <i class='bx bx-link-external'></i></a>
+                     </div>
+                     <div class="resource-card no-thumbnail" data-aos="fade-up" data-aos-delay="300">
+                         <h3>6. Share Market for Beginners – Playlist</h3>
+                         <a href="https://youtube.com/playlist?list=PLxNHpNhDaEFIVma-7cP7GFg85Ax_ZQ19L&si=K1ckF47lJKMYz0d3" target="_blank" rel="noopener noreferrer">Watch the full playlist <i class='bx bx-link-external'></i></a>
+                     </div>
+                     <div class="resource-card no-thumbnail" data-aos="fade-up" data-aos-delay="350">
+                         <h3>7. Stock Market – Basics to Advance – Playlist</h3>
+                         <a href="https://youtube.com/playlist?list=PLxNHpNhDaEFLngQFq3dIQvQO2hPZdAE8t&si=BK58nSyoXmTYCVxd" target="_blank" rel="noopener noreferrer">Watch the full playlist <i class='bx bx-link-external'></i></a>
+                     </div>
+                 </div>
+             </div>
+         </section>
+     </main>
+
+    <footer class="footer">
+        <div class="container">...</div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js" defer></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="js/firebase-auth.js" defer></script>
+    <script src="js/profile.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Footer Year, Mobile Nav, AOS Init (Copied from previous version)
+            const yearSpan = document.getElementById('footer-year');
+            if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+            const menuIcon = document.getElementById('menu-icon');
+            const navbar = document.querySelector('.navbar');
+            // --- Mobile Nav Logic ---
+            if (menuIcon && navbar) {
+                 menuIcon.onclick = () => {
+                     menuIcon.classList.toggle('bx-x');
+                     navbar.classList.toggle('active');
+                 };
+                 navbar.querySelectorAll('a').forEach(link => {
+                     link.addEventListener('click', (e) => {
+                         if (navbar.classList.contains('active') && e.target.closest('.navbar')) {
+                             menuIcon.classList.remove('bx-x');
+                             navbar.classList.remove('active');
+                         }
+                     });
+                 });
+                 document.addEventListener('click', (event) => {
+                     if (navbar.classList.contains('active')) {
+                         const header = document.querySelector('.header');
+                         if (!header || !header.contains(event.target)) {
+                             menuIcon.classList.remove('bx-x');
+                             navbar.classList.remove('active');
+                         }
+                     }
+                 });
+            }
+            // --- End Mobile Nav Logic ---
+
+            // --- AOS Init ---
+            if (typeof AOS !== 'undefined') {
+                 AOS.init({
+                     duration: 700,
+                     once: true,
+                     offset: 50,
+                     easing: 'ease-out-cubic'
+                 });
+             } else {
+                  console.warn("AOS library not loaded.");
+             }
+            // --- End AOS Init ---
+        });
+    </script>
+</body>
+</html>

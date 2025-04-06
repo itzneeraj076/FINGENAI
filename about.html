@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - FinGenius AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">FinGenius AI</a>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="features.html">Features</a>
+            <a href="chatbot.html">Chatbot</a>
+             <a href="dashboard.html" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn" id="login-btn">Login</button>
+            <button class="btn btn-secondary" id="signup-btn">Get Started</button>
+            <button class="btn btn-user" id="user-profile-btn" style="display: none;"><i class='bx bxs-user-circle'></i></button>
+        </div>
+         <div class="theme-switcher">
+             <i class='bx bx-sun' id="theme-icon"></i>
+        </div>
+        <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div class="auth-overlay overlay-backdrop" id="auth-overlay">
+         <div class="overlay-container auth-container">
+             <span class="close-btn" id="close-auth-btn">&times;</span>
+             <div class="auth-box login-box active" id="login-box"><h2>Login</h2><form id="login-form"><div class="input-group"><label for="login-email">Email</label><input type="email" id="login-email" required></div><div class="input-group"><label for="login-password">Password</label><input type="password" id="login-password" required></div><p class="error-message" id="login-error"></p><button type="submit" class="btn btn-block">Login</button></form><button id="google-signin-btn-login" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign in with Google</button><p class="switch-auth">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p></div>
+             <div class="auth-box signup-box" id="signup-box"><h2>Sign Up</h2><form id="signup-form"><div class="input-group"><label for="signup-name">Full Name</label><input type="text" id="signup-name" required></div><div class="input-group"><label for="signup-email">Email</label><input type="email" id="signup-email" required></div><div class="input-group"><label for="signup-password">Password (min. 6 chars)</label><input type="password" id="signup-password" required minlength="6"></div><p class="error-message" id="signup-error"></p><button type="submit" class="btn btn-block">Sign Up</button></form><button id="google-signin-btn-signup" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign up with Google</button><p class="switch-auth">Already have an account? <a href="#" id="show-login">Login</a></p></div>
+         </div>
+     </div>
+
+     <div class="profile-overlay" id="profile-overlay">
+          <div class="profile-container overlay-container">
+              <span class="close-btn" id="close-profile-btn">&times;</span>
+              <h2>User Profile</h2>
+              <div class="profile-info"><img id="profile-avatar" src="images/yadav.png" alt="User Avatar" class="profile-avatar"><p><strong>Name:</strong> <span id="profile-name">Loading...</span></p><p><strong>Email:</strong> <span id="profile-email">Loading...</span></p><p><strong>Phone:</strong> <span id="profile-phone">Loading...</span></p><p><strong>Birth Date:</strong> <span id="profile-dob">Loading...</span></p></div>
+               <div class="profile-edit" style="display: none;"><h3>Edit Profile</h3><div class="input-group"><label for="edit-name">Name:</label><input type="text" id="edit-name" required></div><div class="input-group"><label for="edit-phone">Phone:</label><input type="tel" id="edit-phone" placeholder="+91..."></div><div class="input-group"><label for="edit-dob">Date of Birth:</label><input type="date" id="edit-dob"></div><p class="success-message" id="profile-update-success"></p><p class="error-message" id="profile-update-error"></p><button id="save-profile-btn" class="btn btn-block">Save Changes</button></div>
+               <div class="profile-actions"><button id="edit-profile-btn" class="btn btn-secondary"><i class='bx bxs-edit'></i> Edit Profile</button><button id="cancel-edit-btn" class="btn btn-secondary" style="display: none;"><i class='bx bx-x'></i> Cancel Edit</button><button id="logout-btn" class="btn btn-danger"><i class='bx bx-log-out'></i> Logout</button></div>
+          </div>
+      </div>
+
+     <div class="onboarding-overlay overlay-backdrop" id="onboarding-overlay">
+         <div class="overlay-container onboarding-container">
+             <h2>Complete Your Profile</h2><p>Please provide a few more details to personalize your experience.</p>
+             <form id="onboarding-form"><div class="input-group"><label for="onboarding-phone">Phone Number (Optional)</label><input type="tel" id="onboarding-phone" placeholder="e.g., +919876543210"><small>Format: +CountryCodeNumber</small></div><div class="input-group"><label for="onboarding-dob">Date of Birth (Optional)</label><input type="date" id="onboarding-dob"></div><p class="error-message" id="onboarding-error"></p><button type="submit" class="btn btn-block">Save & Continue</button></form>
+         </div>
+     </div>
+
+    <main>
+        <section class="section-light" style="padding-top: 120px;">
+            <div class="container" data-aos="fade-up">
+                <h2 class="section-title">About FinGenius AI</h2>
+                <p class="section-subtitle">Empowering investors through intelligent, accessible financial guidance.</p>
+            </div>
+        </section>
+
+        <section class="section-dark">
+            <div class="container" data-aos="fade-up">
+                 <div class="about-grid">
+                     <div class="about-text">
+                        <h3>The Problem: Bridging the Knowledge Gap</h3>
+                        <p>Financial literacy levels in India are improving but still present a challenge, especially with millions of new investors entering the market. Many struggle to make informed decisions due to the sheer volume of data and lack of personalized, real-time insights. This often leads to suboptimal investment choices.</p>
+                        <p>The scale of this challenge demands a solution beyond manual means. AI offers the only viable path to providing personalized guidance to potentially hundreds of millions of investors.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/yadav.png" alt="Financial data overload illustration" style="width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto; border-radius: var(--card-border-radius); box-shadow: var(--material-shadow-2);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-light">
+             <div class="container" data-aos="fade-up">
+                 <div class="about-grid reverse">
+                      <div class="about-image">
+                        <img src="images/caht.png" alt="AI providing financial clarity illustration" style="width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto; border-radius: var(--card-border-radius); box-shadow: var(--material-shadow-2);">
+                    </div>
+                     <div class="about-text">
+                        <h3>Our Solution: AI-Powered Clarity</h3>
+                        <p>FinGenius is a Generative AI-powered platform designed specifically to address this gap. Our core mission is to allow anyone, regardless of experience level, to have a meaningful conversation about their financial needs and receive understandable, data-driven information to make better decisions.</p>
+                        <p>By analyzing real-time market data, trends, and user preferences through advanced AI (including Google Gemini APIs), FinGenius provides hyper-personalized recommendations and proactive insights, transforming complex data into actionable advice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section class="section-dark">
+            <div class="container" data-aos="fade-up">
+                <h2 class="section-title">Our Edge</h2>
+                 <div class="features-grid" style="margin-top: 2rem;">
+                    <div class="feature-card"><i class='bx bx-user-voice feature-icon'></i><h3>Proactive & Personalized</h3><p>Unlike reactive tools, FinGenius uses Gen-AI to predict trends and tailor advice specifically to your goals and risk profile.</p></div>
+                    <div class="feature-card"><i class='bx bx-bulb feature-icon'></i><h3>Accessible Insights</h3><p>We simplify complex financial data, providing clear, actionable recommendations that make informed investing accessible to everyone.</p></div>
+                    <div class="feature-card"><i class='bx bx-chip feature-icon'></i><h3>Advanced Technology</h3><p>Leveraging real-time data, sophisticated AI models, and Google Gemini integration ensures powerful, relevant insights.</p></div>
+                    <div class="feature-card"><i class='bx bx-chip feature-icon'></i><h3>Our Commitment</h3><p>We are dedicated to providing a secure, user-friendly platform that respects your privacy and delivers reliable, up-to-date financial information. Our team continuously works to enhance our services, ensuring that FinGenius AI remains at the forefront of financial technology innovation.</p></div>
+                </div>
+            </div>
+        </section>
+
+         <section class="section-light">
+            <div class="container" data-aos="fade-up">
+                 <h2 class="section-title">Technology Stack</h2>
+                <p class="section-subtitle">Built with modern, scalable technologies.</p>
+                 <div class="tech-stack-container"><span>React.js</span><span>Node.js</span><span>TensorFlow/PyTorch</span><span>Google Gemini</span><span>MongoDB</span><span>Google Cloud Platform</span><span>Firebase</span><span>CSS3/HTML5</span></div>
+            </div>
+        </section>
+
+         <section class="section-dark">
+            <div class="container" data-aos="fade-up">
+                 <h2 class="section-title">Project Resources</h2>
+                 <div class="button-group-center"><a href="#" class="btn btn-secondary">GitHub Repo</a><a href="#" class="btn btn-secondary">Demo Video</a><a href="#" class="btn btn-secondary">MVP Link</a></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container"><p>&copy; <span id="footer-year"></span> FinGenius AI. All rights reserved.</p><div class="footer-links"><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></div></div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js" defer></script>
+    <script type="importmap">{ "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" }}</script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="js/firebase-auth.js" defer></script>
+    <script src="js/profile.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const yearSpan = document.getElementById('footer-year'); if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+            const menuIcon = document.getElementById('menu-icon'); const navbar = document.querySelector('.navbar'); if (menuIcon && navbar) { menuIcon.onclick = () => { menuIcon.classList.toggle('bx-x'); navbar.classList.toggle('active'); }; navbar.querySelectorAll('a').forEach(link => { link.addEventListener('click', (e) => { if (navbar.classList.contains('active') && e.target.closest('.navbar')) { menuIcon.classList.remove('bx-x'); navbar.classList.remove('active'); } }); }); document.addEventListener('click', (event) => { if (navbar.classList.contains('active')) { const header = document.querySelector('.header'); if (!header || !header.contains(event.target)) { menuIcon.classList.remove('bx-x'); navbar.classList.remove('active'); } } }); }
+             if (typeof AOS !== 'undefined') { AOS.init({ duration: 700, once: true, offset: 50, easing: 'ease-out-cubic' }); } else { console.warn("AOS library not loaded."); }
+        });
+    </script>
+    </body>
+</html>

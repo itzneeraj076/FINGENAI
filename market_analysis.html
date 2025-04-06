@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - FinGenius AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+    <style>
+        .warning {
+            color: #ffc107;
+            background-color: rgba(255, 193, 7, 0.1);
+            border: 1px solid #ffc107;
+            padding: 0.75rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        .info {
+            font-size: 0.9rem;
+            color: var(--text-color-secondary, #888);
+            margin-top: 0.5rem;
+        }
+        #market-table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+        #market-table th, #market-table td {
+            text-align: left;
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border-color, #eee);
+        }
+         #market-table thead th {
+             background-color: var(--card-bg-color, #f9f9f9);
+             font-weight: 600;
+        }
+        #log-output {
+             max-height: 150px;
+             overflow-y: scroll;
+             background-color: var(--input-bg-color, #f0f0f0);
+             border: 1px solid var(--border-color, #ccc);
+             padding: 0.75rem;
+             font-family: monospace;
+             font-size: 0.85rem;
+             white-space: pre-wrap;
+             margin-top: 1rem;
+             border-radius: 5px;
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .form-group input[type="text"] {
+            width: calc(100% - 110px);
+            padding: 0.6rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--input-bg-color);
+            color: var(--text-color);
+            margin-right: 10px;
+        }
+        #connect-upstox-button, #subscribe-button {
+            padding: 0.6rem 1rem;
+        }
+        .unsubscribe-btn {
+             padding: 0.2rem 0.5rem;
+             font-size: 0.8rem;
+             background-color: var(--danger-color, #dc3545);
+             color: white;
+             border: none;
+             border-radius: 3px;
+             cursor: pointer;
+        }
+        .unsubscribe-btn:hover {
+             opacity: 0.9;
+        }
+        #finnhub-market-data .market-item {
+             border: 1px solid var(--border-color, #eee);
+             padding: 1rem;
+             margin-bottom: 1rem;
+             border-radius: 5px;
+             background-color: var(--card-bg-color, #fff);
+         }
+        #finnhub-market-data .market-item p { margin: 0.3rem 0; }
+        #finnhub-market-data .market-item strong { color: var(--primary-color, #007bff); }
+        #finnhub-market-data .change { font-size: 0.9rem; }
+        #finnhub-market-data .change.positive { color: var(--success-color, #28a745); }
+        #finnhub-market-data .change.negative { color: var(--danger-color, #dc3545); }
+        #finnhub-market-data .change span { font-weight: bold; }
+        #finnhub-market-data .details { font-size: 0.8rem; color: var(--text-color-secondary, #888); }
+        #finnhub-market-data .unavailable { opacity: 0.7; border-style: dashed; }
+        #finnhub-market-data .nodata { font-style: italic; color: var(--text-color-secondary, #888); }
+        .api-note { font-size: 0.8rem; color: var(--text-color-secondary, #888); text-align: center; margin-top: 1rem; }
+        .api-note a { color: var(--primary-color, #007bff); }
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">FinGenius AI</a>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="features.html">Features</a>
+            <a href="chatbot.html">Chatbot</a>
+            <a href="learning_resources.html">Learning Resources</a>
+            <a href="market_analysis.html" class="active">Market Analysis</a>
+            <a href="dashboard.html" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+            </nav>
+        <div class="auth-buttons">
+            <button class="btn" id="login-btn">Login</button>
+            <button class="btn btn-secondary" id="signup-btn">Get Started</button>
+            <button class="btn btn-user" id="user-profile-btn" style="display: none;"><i class='bx bxs-user-circle'></i></button>
+        </div>
+        <div class="theme-switcher">
+             <i class='bx bx-sun' id="theme-icon"></i>
+        </div>
+         <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div class="auth-overlay overlay-backdrop" id="auth-overlay">...</div>
+    <div class="profile-overlay" id="profile-overlay">...</div>
+    <main class="container" style="padding-top: 100px; padding-bottom: 60px;">
+         <h1 data-aos="fade-up">Market Analysis</h1>
+
+        <div id="finnhub-market-data" style="margin-top: 2rem;" data-aos="fade-up" data-aos-delay="180">
+            <h2>Market Snapshot (Finnhub)</h2>
+            <p>Loading Finnhub data...</p>
+        </div>
+
+
+        <hr style="margin: 2rem 0;">
+
+         <h2 data-aos="fade-up" data-aos-delay="100">Upstox Live Feed (Placeholder)</h2>
+
+        <div id="upstox-auth-section" data-aos="fade-up" data-aos-delay="150">
+            <p style="margin-bottom: 1rem;">Status: <span id="upstox-status" style="font-weight: bold;">Disconnected</span></p>
+            <button id="connect-upstox-button" class="btn">Connect to Upstox (Placeholder)</button>
+            <p class="warning">
+                <strong>Note:</strong> Real connection requires server-side handling for security (OAuth) and WebSocket URL authorization. This button is a non-functional placeholder.
+            </p>
+        </div>
+
+        <div id="market-data-controls" style="display: none; margin-top: 2rem;" data-aos="fade-up" data-aos-delay="200">
+            <h2>Track Instruments (Upstox)</h2>
+            <div class="form-group">
+                <label for="instrument-key">Instrument Key (e.g., NSE_EQ|INE002A01018):</label>
+                <input type="text" id="instrument-key" placeholder="Enter instrument key">
+                <button id="subscribe-button" class="btn btn-secondary">Subscribe</button>
+            </div>
+             <p class="info">Find Instrument Keys using the Upstox API or developer portal.</p>
+        </div>
+
+
+        <div id="market-data-display" style="margin-top: 2rem;" data-aos="fade-up" data-aos-delay="250">
+            <h2>Upstox Data Table (Requires Connection & Subscription)</h2>
+            <div style="overflow-x: auto;"> <table id="market-table">
+                    <thead>
+                        <tr>
+                            <th>Instrument</th>
+                            <th>LTP</th>
+                            <th>Change</th>
+                            <th>Open</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>Close</th>
+                            <th>Volume</th>
+                            <th>Timestamp</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="market-table-body">
+                        <tr id="no-data-row"><td colspan="10">Connect to Upstox and subscribe to view live data.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="connection-log-section" style="margin-top: 2rem;" data-aos="fade-up" data-aos-delay="300">
+            <h3>Upstox Connection Log</h3>
+            <pre id="log-output"></pre> </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© <span id="footer-year"></span> FinGenius AI. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js" defer></script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script src="js/theme.js" defer></script>
+    <script src="js/firebase-auth.js" defer></script>
+    <script src="js/profile.js" defer></script>
+    <script src="js/upstox-market.js" defer></script>
+    <script src="js/market-data.js" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+
+        const yearSpan = document.getElementById('footer-year');
+        if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+
+        const menuIcon = document.getElementById('menu-icon');
+        const navbar = document.querySelector('.navbar');
+        if (menuIcon && navbar) {
+            menuIcon.onclick = () => {
+                menuIcon.classList.toggle('bx-x');
+                navbar.classList.toggle('active');
+            };
+
+             navbar.querySelectorAll('a').forEach(link => { });
+             document.addEventListener('click', (event) => { });
+        }
+
+
+        if (typeof AOS !== 'undefined') {
+          AOS.init({ duration: 700, once: true, offset: 50, easing: 'ease-out-cubic' });
+        } else {
+          console.warn("AOS library not loaded.");
+        }
+
+
+        const logOutput = document.getElementById('log-output');
+        if (logOutput) {
+            const timestamp = new Date().toLocaleTimeString();
+            logOutput.textContent = `[${timestamp}] Page Initialized.\n` + logOutput.textContent;
+        } else {
+             console.error("Log output element not found.");
+        }
+
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - FinGenius AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">FinGenius AI</a>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="features.html">Features</a>
+            <a href="chatbot.html">Chatbot</a>
+             <a href="video_resources.html">Video Resources</a>
+            <a href="profile.html" class="active">Profile</a>
+            <a href="dashboard.html" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn" id="login-btn">Login</button>
+            <button class="btn btn-secondary" id="signup-btn">Get Started</button>
+            <button class="btn btn-user" id="user-profile-btn" style="display: none;"><i class='bx bxs-user-circle'></i></button>
+        </div>
+        <div class="theme-switcher">
+             <i class='bx bx-sun' id="theme-icon"></i>
+        </div>
+         <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div class="auth-overlay overlay-backdrop" id="auth-overlay">
+        <div class="overlay-container auth-container">
+            <span class="close-btn" id="close-auth-btn">&times;</span>
+            <div class="auth-box login-box active" id="login-box">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="input-group"><label for="login-email-modal">Email</label><input type="email" id="login-email-modal" required></div>
+                    <div class="input-group"><label for="login-password-modal">Password</label><input type="password" id="login-password-modal" required></div>
+                    <p class="error-message" id="login-error-modal"></p>
+                    <button type="submit" class="btn btn-block">Login</button>
+                </form>
+                 <button id="google-signin-btn-login-modal" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign in with Google</button>
+                <p class="switch-auth">Don't have an account? <a href="#" id="show-signup-modal">Sign Up</a></p>
+            </div>
+            <div class="auth-box signup-box" id="signup-box-modal">
+                <h2>Sign Up</h2>
+                <form id="signup-form-modal">
+                     <div class="input-group"><label for="signup-name-modal">Full Name</label><input type="text" id="signup-name-modal" required></div>
+                    <div class="input-group"><label for="signup-email-modal">Email</label><input type="email" id="signup-email-modal" required></div>
+                    <div class="input-group"><label for="signup-password-modal">Password (min. 6 chars)</label><input type="password" id="signup-password-modal" required minlength="6"></div>
+                     <p class="error-message" id="signup-error-modal"></p>
+                    <button type="submit" class="btn btn-block">Sign Up</button>
+                </form>
+                 <button id="google-signin-btn-signup-modal" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign up with Google</button>
+                <p class="switch-auth">Already have an account? <a href="#" id="show-login-modal">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+     <div class="profile-overlay" id="profile-overlay">
+         <div class="profile-container overlay-container">
+             <span class="close-btn" id="close-profile-btn">&times;</span>
+             <h2>User Profile</h2>
+             <div class="profile-info">
+                <img id="profile-avatar-modal" src="images/default-avatar.png" alt="User Avatar" class="profile-avatar">
+                 <p><strong>Name:</strong> <span id="profile-name-modal">Loading...</span></p>
+                 <p><strong>Email:</strong> <span id="profile-email-modal">Loading...</span></p>
+                 <p><strong>Phone:</strong> <span id="profile-phone-modal">Loading...</span></p>
+                 <p><strong>Birth Date:</strong> <span id="profile-dob-modal">Loading...</span></p>
+             </div>
+              <div class="profile-edit" style="display: none;">
+                    <h3>Edit Profile</h3>
+                    <div class="input-group"><label for="edit-name-modal">Name:</label><input type="text" id="edit-name-modal" required></div>
+                    <div class="input-group"><label for="edit-phone-modal">Phone:</label><input type="tel" id="edit-phone-modal" placeholder="+91..."></div>
+                    <div class="input-group"><label for="edit-dob-modal">Date of Birth:</label><input type="date" id="edit-dob-modal"></div>
+                     <p class="success-message" id="profile-update-success-modal"></p>
+                     <p class="error-message" id="profile-update-error-modal"></p>
+                    <button id="save-profile-btn-modal" class="btn btn-block">Save Changes</button>
+              </div>
+              <div class="profile-actions">
+                     <button id="edit-profile-btn-modal" class="btn btn-secondary"><i class='bx bxs-edit'></i> Edit Profile</button>
+                     <button id="cancel-edit-btn-modal" class="btn btn-secondary" style="display: none;"><i class='bx bx-x'></i> Cancel Edit</button>
+                    <button id="logout-btn-modal" class="btn btn-danger"><i class='bx bx-log-out'></i> Logout</button>
+             </div>
+         </div>
+     </div>
+
+    <main class="profile-page-container" style="padding: 120px 20px 80px;">
+        <div class="container" data-aos="fade-up">
+            <h1 class="section-title" style="text-align: left; margin-bottom: 2rem;">Your Profile</h1>
+            <div id="profile-card" class="card">
+                <div id="profile-view">
+                    <div class="profile-field">
+                        <label>Name:</label>
+                        <span id="view-name">Loading...</span>
+                    </div>
+                    <div class="profile-field">
+                        <label>Email:</label>
+                        <span id="view-email">Loading...</span>
+                    </div>
+                    <div class="profile-field">
+                        <label>Phone:</label>
+                        <span id="view-phone">Not set</span>
+                    </div>
+                    <div class="profile-field">
+                        <label>Date of Birth:</label>
+                        <span id="view-dob">Not set</span>
+                    </div>
+                    <div class="profile-actions">
+                       <button id="edit-profile-button" class="btn btn-secondary"><i class='bx bxs-edit'></i> Edit Profile</button>
+                   </div>
+                </div>
+
+                <div id="profile-edit-form" style="display: none;">
+                    <form id="main-profile-form">
+                        <div class="profile-field">
+                            <label for="edit-name-page">Name:</label>
+                            <input type="text" id="edit-name-page" required>
+                        </div>
+                         <div class="profile-field">
+                             <label for="edit-email-page">Email:</label>
+                            <input type="email" id="edit-email-page" disabled>
+                         </div>
+                        <div class="profile-field">
+                            <label for="edit-phone-page">Phone:</label>
+                            <input type="tel" id="edit-phone-page" placeholder="+91...">
+                        </div>
+                        <div class="profile-field">
+                            <label for="edit-dob-page">Date of Birth:</label>
+                            <input type="date" id="edit-dob-page">
+                        </div>
+                        <p class="success-message" id="profile-update-success-page"></p>
+                        <p class="error-message" id="profile-update-error-page"></p>
+                        <div class="profile-actions">
+                            <button type="submit" id="save-profile-button-page" class="btn">Save Changes</button>
+                            <button type="button" id="cancel-edit-button-page" class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+             <div class="card" style="margin-top: 2rem;" data-aos="fade-up" data-aos-delay="100">
+                  <h2>Account Actions</h2>
+                   <button id="logout-button-page" class="btn btn-danger" style="margin-top: 1rem;"><i class='bx bx-log-out'></i> Logout</button>
+                   <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Logout from your current session.</p>
+             </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="footer-year"></span> FinGenius AI. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js" defer></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="js/firebase-auth.js" defer></script>
+    <script src="js/profile.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const yearSpan = document.getElementById('footer-year');
+            if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+             const menuIcon = document.getElementById('menu-icon');
+             const navbar = document.querySelector('.navbar');
+             if (menuIcon && navbar) {
+                 menuIcon.onclick = () => {
+                     menuIcon.classList.toggle('bx-x');
+                     navbar.classList.toggle('active');
+                 };
+                 navbar.querySelectorAll('a').forEach(link => {
+                     link.addEventListener('click', (e) => {
+                         if (navbar.classList.contains('active') && e.target.closest('.navbar')) {
+                             menuIcon.classList.remove('bx-x');
+                             navbar.classList.remove('active');
+                         }
+                     });
+                 });
+                 document.addEventListener('click', (event) => {
+                     if (navbar.classList.contains('active')) {
+                         const header = document.querySelector('.header');
+                         if (!header || !header.contains(event.target)) {
+                             menuIcon.classList.remove('bx-x');
+                             navbar.classList.remove('active');
+                         }
+                     }
+                 });
+            }
+
+            if (typeof AOS !== 'undefined') {
+              AOS.init({
+                duration: 700,
+                once: true,
+                offset: 50,
+                easing: 'ease-out-cubic'
+              });
+            } else {
+              console.warn("AOS library not loaded.");
+            }
+
+            const profileView = document.getElementById('profile-view');
+            const profileEditForm = document.getElementById('profile-edit-form');
+            const editButton = document.getElementById('edit-profile-button');
+            const saveButton = document.getElementById('save-profile-button-page');
+            const cancelButton = document.getElementById('cancel-edit-button-page');
+            const logoutButtonPage = document.getElementById('logout-button-page');
+
+            const viewName = document.getElementById('view-name');
+            const viewEmail = document.getElementById('view-email');
+            const viewPhone = document.getElementById('view-phone');
+            const viewDob = document.getElementById('view-dob');
+
+            const editNameInput = document.getElementById('edit-name-page');
+            const editEmailInput = document.getElementById('edit-email-page');
+            const editPhoneInput = document.getElementById('edit-phone-page');
+            const editDobInput = document.getElementById('edit-dob-page');
+
+            const successMessage = document.getElementById('profile-update-success-page');
+            const errorMessage = document.getElementById('profile-update-error-page');
+
+             function populateView(userData) {
+                viewName.textContent = userData.name || 'N/A';
+                viewEmail.textContent = userData.email || 'N/A';
+                viewPhone.textContent = userData.phone || 'Not set';
+                viewDob.textContent = userData.dob || 'Not set';
+
+                editNameInput.value = userData.name || '';
+                editEmailInput.value = userData.email || '';
+                editPhoneInput.value = userData.phone || '';
+                editDobInput.value = userData.dob || '';
+             }
+
+            function toggleEditMode(edit) {
+                profileView.style.display = edit ? 'none' : 'block';
+                profileEditForm.style.display = edit ? 'block' : 'none';
+                successMessage.textContent = '';
+                errorMessage.textContent = '';
+            }
+
+             editButton.addEventListener('click', () => toggleEditMode(true));
+             cancelButton.addEventListener('click', () => toggleEditMode(false));
+
+            logoutButtonPage.addEventListener('click', () => {
+                 if (window.auth && typeof window.auth.signOut === 'function') {
+                      window.auth.signOut().then(() => {
+                          console.log('User signed out from profile page.');
+                          window.location.href = 'index.html';
+                      }).catch((error) => {
+                          console.error('Sign out error:', error);
+                      });
+                 } else {
+                     console.error("Firebase auth instance not available for logout.");
+                 }
+            });
+
+
+            document.getElementById('main-profile-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                 successMessage.textContent = '';
+                 errorMessage.textContent = '';
+                 saveButton.disabled = true;
+
+                 const updatedData = {
+                     name: editNameInput.value.trim(),
+                     phone: editPhoneInput.value.trim() || null,
+                     dob: editDobInput.value || null,
+                 };
+
+                 if (window.currentUser && window.firestore && typeof window.updateUserProfile === 'function') {
+                     try {
+                         await window.updateUserProfile(window.currentUser.uid, updatedData);
+                         successMessage.textContent = 'Profile updated successfully!';
+                         populateView({ ...window.currentUserData, ...updatedData });
+                         setTimeout(() => {
+                              toggleEditMode(false);
+                              successMessage.textContent = '';
+                         }, 2000);
+                     } catch (error) {
+                          console.error('Error updating profile from page:', error);
+                          errorMessage.textContent = 'Failed to update profile. ' + error.message;
+                     } finally {
+                         saveButton.disabled = false;
+                     }
+                 } else {
+                      errorMessage.textContent = 'User not logged in or system not ready.';
+                      saveButton.disabled = false;
+                 }
+            });
+
+            document.addEventListener('userLoggedIn', (event) => {
+                 const user = event.detail.user;
+                 const userData = event.detail.userData;
+                 window.currentUser = user;
+                 window.currentUserData = userData;
+                 populateView(userData);
+                 logoutButtonPage.style.display = 'inline-block';
+            });
+
+             document.addEventListener('userLoggedOut', () => {
+                  viewName.textContent = 'Please log in';
+                  viewEmail.textContent = 'Please log in';
+                  viewPhone.textContent = 'N/A';
+                  viewDob.textContent = 'N/A';
+                  toggleEditMode(false);
+                  logoutButtonPage.style.display = 'none';
+                  window.currentUser = null;
+                  window.currentUserData = null;
+                  window.location.href = 'index.html';
+             });
+
+            if (window.currentUser && window.currentUserData) {
+                 populateView(window.currentUserData);
+                 logoutButtonPage.style.display = 'inline-block';
+            } else {
+                 logoutButtonPage.style.display = 'none';
+            }
+
+        });
+    </script>
+</body>
+</html>

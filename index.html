@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinGenius AI - Your Financial Assistant</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">FinGenius AI</a>
+        <nav class="navbar">
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="features.html">Features</a>
+            <a href="chatbot.html">Chatbot</a>
+            <a href="dashboard.html" id="nav-link-dashboard" style="display: none;">Dashboard</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn" id="login-btn">Login</button>
+            <button class="btn btn-secondary" id="signup-btn">Get Started</button>
+            <button class="btn btn-user" id="user-profile-btn" style="display: none;"><i class='bx bxs-user-circle'></i></button>
+        </div>
+        <div class="theme-switcher">
+             <i class='bx bx-sun' id="theme-icon"></i>
+        </div>
+         <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div class="auth-overlay overlay-backdrop" id="auth-overlay">
+        <div class="overlay-container auth-container">
+            <span class="close-btn" id="close-auth-btn">&times;</span>
+            <div class="auth-box login-box active" id="login-box">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="input-group"><label for="login-email">Email</label><input type="email" id="login-email" required></div>
+                    <div class="input-group"><label for="login-password">Password</label><input type="password" id="login-password" required></div>
+                    <p class="error-message" id="login-error"></p>
+                    <button type="submit" class="btn btn-block">Login</button>
+                </form>
+                 <button id="google-signin-btn-login" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign in with Google</button>
+                <p class="switch-auth">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+            </div>
+            <div class="auth-box signup-box" id="signup-box">
+                <h2>Sign Up</h2>
+                <form id="signup-form">
+                     <div class="input-group"><label for="signup-name">Full Name</label><input type="text" id="signup-name" required></div>
+                    <div class="input-group"><label for="signup-email">Email</label><input type="email" id="signup-email" required></div>
+                    <div class="input-group"><label for="signup-password">Password (min. 6 chars)</label><input type="password" id="signup-password" required minlength="6"></div>
+                     <p class="error-message" id="signup-error"></p>
+                    <button type="submit" class="btn btn-block">Sign Up</button>
+                </form>
+                 <button id="google-signin-btn-signup" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign up with Google</button>
+                <p class="switch-auth">Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+     <div class="profile-overlay" id="profile-overlay">
+         <div class="profile-container overlay-container">
+             <span class="close-btn" id="close-profile-btn">&times;</span>
+             <h2>User Profile</h2>
+             <div class="profile-info">
+                <img id="profile-avatar" src="images/default-avatar.png" alt="User Avatar" class="profile-avatar">
+                 <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+                 <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+                 <p><strong>Phone:</strong> <span id="profile-phone">Loading...</span></p>
+                 <p><strong>Birth Date:</strong> <span id="profile-dob">Loading...</span></p>
+             </div>
+              <div class="profile-edit" style="display: none;">
+                    <h3>Edit Profile</h3>
+                    <div class="input-group"><label for="edit-name">Name:</label><input type="text" id="edit-name" required></div>
+                    <div class="input-group"><label for="edit-phone">Phone:</label><input type="tel" id="edit-phone" placeholder="+91..."></div>
+                    <div class="input-group"><label for="edit-dob">Date of Birth:</label><input type="date" id="edit-dob"></div>
+                     <p class="success-message" id="profile-update-success"></p>
+                     <p class="error-message" id="profile-update-error"></p>
+                    <button id="save-profile-btn" class="btn btn-block">Save Changes</button>
+              </div>
+              <div class="profile-actions">
+                     <button id="edit-profile-btn" class="btn btn-secondary"><i class='bx bxs-edit'></i> Edit Profile</button>
+                     <button id="cancel-edit-btn" class="btn btn-secondary" style="display: none;"><i class='bx bx-x'></i> Cancel Edit</button>
+                    <button id="logout-btn" class="btn btn-danger"><i class='bx bx-log-out'></i> Logout</button>
+             </div>
+         </div>
+     </div>
+
+    <div class="onboarding-overlay overlay-backdrop" id="onboarding-overlay">
+        <div class="overlay-container onboarding-container">
+            <h2>Complete Your Profile</h2>
+            <p>Please provide a few more details to personalize your experience.</p>
+            <form id="onboarding-form">
+                <div class="input-group">
+                    <label for="onboarding-phone">Phone Number (Optional)</label>
+                    <input type="tel" id="onboarding-phone" placeholder="e.g., +919876543210">
+                     <small>Format: +CountryCodeNumber</small>
+                </div>
+                <div class="input-group">
+                    <label for="onboarding-dob">Date of Birth (Optional)</label>
+                    <input type="date" id="onboarding-dob">
+                </div>
+                <p class="error-message" id="onboarding-error"></p>
+                <button type="submit" class="btn btn-block">Save & Continue</button>
+            </form>
+        </div>
+    </div>
+
+
+    <section class="hero" id="home">
+        <div class="hero-content" data-aos="fade-right">
+            <h1>Unlock Financial Clarity with FinGenius AI</h1>
+            <p class="section-subtitle">Intelligent insights, personalized strategies, and seamless tracking for your financial journey.</p>
+            <div class="rotating-quote-container">
+                 <p id="rotating-quote" data-aos="fade-up" data-aos-delay="200">Loading insightful quotes...</p>
+            </div>
+            <button class="btn btn-hero" id="hero-get-started" data-aos="fade-up" data-aos-delay="400">Get Started Now</button>
+        </div>
+        <div class="hero-image" data-aos="fade-left">
+             <img src="images/gg.png" style="max-width: 100%; height: auto; opacity: 0.8;">
+        </div>
+    </section>
+
+    <section id="market-snapshot" class="section-light">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Real-Time Market Snapshot</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Stay updated with the latest market movements.</p>
+            <div class="market-data-widget" id="market-data-widget" data-aos="fade-up" data-aos-delay="200">
+                <p>Loading market data...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features-preview" class="section-dark">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Core Features</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Discover how FinGenius AI empowers your financial decisions.</p>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="zoom-in">
+                    <i class='bx bx-analyse feature-icon'></i>
+                    <h3>AI-Powered Insights</h3>
+                    <p>Leverage artificial intelligence for personalized financial analysis and recommendations.</p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="150">
+                    <i class='bx bx-target-lock feature-icon'></i>
+                    <h3>Goal Planning</h3>
+                    <p>Set, track, and achieve your financial goals with tailored strategies and progress monitoring.</p>
+                </div>
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class='bx bx-line-chart feature-icon'></i>
+                    <h3>Investment Tracking</h3>
+                    <p>Monitor your portfolio performance and get insights into market trends and opportunities.</p>
+                </div>
+                 <div class="feature-card" data-aos="zoom-in" data-aos-delay="450">
+                    <i class='bx bx-bot feature-icon'></i>
+                    <h3>Smart Chatbot</h3>
+                    <p>Get instant answers to your financial questions from our intelligent AI chatbot.</p>
+                    <a href="chatbot.html" class="btn btn-secondary" style="margin-top: 15px;">Try Chatbot</a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                 <a href="features.html" class="btn" data-aos="fade-up" data-aos-delay="500">Explore All Features</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="learn-more" class="section-light">
+         <div class="container" data-aos="fade-up">
+             <h2 class="section-title">Ready to Learn More?</h2>
+             <p class="section-subtitle">Explore our resources, understand financial concepts, and see how FinGenius AI can fit into your life.</p>
+             <p>We believe financial literacy is key to success. FinGenius AI not only provides tools but aims to educate. Explore potential features like our knowledge base, tutorials, and blog posts (coming soon!) to enhance your financial understanding.</p>
+             <div style="text-align: center; margin-top: 30px;">
+                <a href="about.html" class="btn btn-secondary" data-aos="fade-up" data-aos-delay="100">About Us</a>
+             </div>
+         </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="footer-year"></span> FinGenius AI. All rights reserved.</p>
+             <div class="footer-links">
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+             </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js" defer></script>
+    <script type="importmap">{ "imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai" }}</script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="js/firebase-auth.js" defer></script>
+    <script src="js/profile.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/landing.js" defer></script>
+    <script src="js/market-data.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const yearSpan = document.getElementById('footer-year'); if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+            const menuIcon = document.getElementById('menu-icon'); const navbar = document.querySelector('.navbar'); if (menuIcon && navbar) { menuIcon.onclick = () => { menuIcon.classList.toggle('bx-x'); navbar.classList.toggle('active'); }; navbar.querySelectorAll('a').forEach(link => { link.addEventListener('click', (e) => { if (navbar.classList.contains('active') && e.target.closest('.navbar')) { menuIcon.classList.remove('bx-x'); navbar.classList.remove('active'); } }); }); document.addEventListener('click', (event) => { if (navbar.classList.contains('active')) { const header = document.querySelector('.header'); if (!header || !header.contains(event.target)) { menuIcon.classList.remove('bx-x'); navbar.classList.remove('active'); } } }); }
+             if (typeof AOS !== 'undefined') { AOS.init({ duration: 700, once: true, offset: 50, easing: 'ease-out-cubic' }); } else { console.warn("AOS library not loaded."); }
+        });
+    </script>
+    </body>
+</html>

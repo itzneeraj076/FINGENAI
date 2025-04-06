@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - FinGenius AI</title>
+    <link rel="stylesheet" href="css/style.css">
+     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+      <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+</head>
+<body>
+     <header class="header">
+        <a href="index.html" class="logo">FinGenius AI</a> <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="features.html">Features</a>
+            <a href="chatbot.html" class="active">Chatbot</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn" id="login-btn">Login</button>
+            <button class="btn btn-secondary" id="signup-btn">Get Started</button>
+            <button class="btn btn-user" id="user-profile-btn" style="display: none;"><i class='bx bxs-user-circle'></i></button>
+        </div>
+         <div class="theme-switcher">
+             <i class='bx bx-sun' id="theme-icon"></i>
+        </div>
+        <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div class="auth-overlay overlay-backdrop" id="auth-overlay">
+        <div class="overlay-container auth-container">
+            <span class="close-btn" id="close-auth-btn">&times;</span>
+            <div class="auth-box login-box active" id="login-box">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="input-group"><label for="login-email">Email</label><input type="email" id="login-email" required></div>
+                    <div class="input-group"><label for="login-password">Password</label><input type="password" id="login-password" required></div>
+                    <p class="error-message" id="login-error"></p>
+                    <button type="submit" class="btn btn-block">Login</button>
+                </form>
+                 <button id="google-signin-btn-login" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign in with Google</button>
+                <p class="switch-auth">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+            </div>
+            <div class="auth-box signup-box" id="signup-box">
+                <h2>Sign Up</h2>
+                <form id="signup-form">
+                     <div class="input-group"><label for="signup-name">Full Name</label><input type="text" id="signup-name" required></div>
+                    <div class="input-group"><label for="signup-email">Email</label><input type="email" id="signup-email" required></div>
+                    <div class="input-group"><label for="signup-password">Password (min. 6 chars)</label><input type="password" id="signup-password" required minlength="6"></div>
+                     <p class="error-message" id="signup-error"></p>
+                    <button type="submit" class="btn btn-block">Sign Up</button>
+                </form>
+                 <button id="google-signin-btn-signup" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign up with Google</button>
+                <p class="switch-auth">Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+     <div class="profile-overlay" id="profile-overlay">
+        <div class="profile-container">
+             <span class="close-btn" id="close-profile-btn">&times;</span>
+             <h2>User Profile</h2>
+             <div class="profile-info">
+                <img id="profile-avatar" src="images/default-avatar.png" alt="User Avatar" class="profile-avatar">
+                 <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+                 <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+                 </div>
+              <div class="profile-edit" style="display: none;">
+                    <h3>Edit Profile</h3>
+                    <div class="input-group">
+                        <label for="edit-name">Name:</label>
+                        <input type="text" id="edit-name">
+                    </div>
+                    <p class="success-message" id="profile-update-success"></p>
+                    <button id="save-profile-btn" class="btn">Save Changes</button>
+                    <button id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="profile-actions">
+                     <button id="edit-profile-btn" class="btn btn-secondary"><i class='bx bxs-edit'></i> Edit Profile</button>
+                    <button id="logout-btn" class="btn btn-danger"><i class='bx bx-log-out'></i> Logout</button>
+             </div>
+         </div>
+     </div>
+
+    <div class="chat-page-container"> <div class="chat-container">
+            <div class="chat-header">
+                <h2>FinGenius Chatbot</h2>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                </div>
+            <form class="chat-input" id="chat-form"> <input type="text" id="message-input" placeholder="Ask a financial question..." autocomplete="off">
+                <button type="submit" class="btn" id="send-button" aria-label="Send Message"><i class='bx bxs-send'></i></button> </form>
+             <p class="api-note chat-api-note">Powered by Google Gemini. Responses may be inaccurate.</p>
+        </div>
+    </div>
+
+     <footer class="footer" style="margin-top: 0;"> <div class="container">
+            <p>&copy; <span id="footer-year"></span> FinGenius AI. All rights reserved.</p>
+             <div class="footer-links">
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+             </div>
+        </div>
+    </footer>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+
+    <script src="js/firebase-auth.js"></script> <script src="js/profile.js"></script>     <script src="js/theme.js"></script>         <script src="js/chatbot.js" type="module"></script> <script>
+        // Simple script for footer year and mobile nav toggle (can be moved to theme.js if preferred)
+        document.addEventListener('DOMContentLoaded', () => {
+            const yearSpan = document.getElementById('footer-year');
+            if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+            const menuIcon = document.getElementById('menu-icon');
+            const navbar = document.querySelector('.navbar');
+
+            if (menuIcon && navbar) {
+                menuIcon.onclick = () => {
+                    menuIcon.classList.toggle('bx-x');
+                    navbar.classList.toggle('active');
+                };
+                 // Close menu when a link is clicked (optional)
+                 navbar.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                         if (navbar.classList.contains('active')) {
+                            menuIcon.classList.remove('bx-x');
+                            navbar.classList.remove('active');
+                         }
+                    });
+                 });
+            }
+        });
+     </script>
+</body>
+</html>

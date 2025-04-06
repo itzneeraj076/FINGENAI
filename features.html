@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - FinGenius AI</title>
+     <link rel="stylesheet" href="css/style.css"> <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/> <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+</head>
+<body>
+     <header class="header">
+        <a href="index.html" class="logo">FinGenius AI</a>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="features.html" class="active">Features</a>
+            <a href="chatbot.html">Chatbot</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn" id="login-btn">Login</button>
+            <button class="btn btn-secondary" id="signup-btn">Get Started</button>
+            <button class="btn btn-user" id="user-profile-btn" style="display: none;"><i class='bx bxs-user-circle'></i></button>
+        </div>
+         <div class="theme-switcher">
+             <i class='bx bx-sun' id="theme-icon"></i>
+        </div>
+        <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+
+    <div class="auth-overlay overlay-backdrop" id="auth-overlay">
+        <div class="overlay-container auth-container">
+            <span class="close-btn" id="close-auth-btn">&times;</span>
+            <div class="auth-box login-box active" id="login-box">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="input-group"><label for="login-email">Email</label><input type="email" id="login-email" required></div>
+                    <div class="input-group"><label for="login-password">Password</label><input type="password" id="login-password" required></div>
+                    <p class="error-message" id="login-error"></p>
+                    <button type="submit" class="btn btn-block">Login</button>
+                </form>
+                 <button id="google-signin-btn-login" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign in with Google</button>
+                <p class="switch-auth">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+            </div>
+            <div class="auth-box signup-box" id="signup-box">
+                <h2>Sign Up</h2>
+                <form id="signup-form">
+                     <div class="input-group"><label for="signup-name">Full Name</label><input type="text" id="signup-name" required></div>
+                    <div class="input-group"><label for="signup-email">Email</label><input type="email" id="signup-email" required></div>
+                    <div class="input-group"><label for="signup-password">Password (min. 6 chars)</label><input type="password" id="signup-password" required minlength="6"></div>
+                     <p class="error-message" id="signup-error"></p>
+                    <button type="submit" class="btn btn-block">Sign Up</button>
+                </form>
+                 <button id="google-signin-btn-signup" class="btn btn-google btn-block"><i class='bx bxl-google'></i> Sign up with Google</button>
+                <p class="switch-auth">Already have an account? <a href="#" id="show-login">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-overlay" id="profile-overlay">
+         <div class="profile-container">
+             <span class="close-btn" id="close-profile-btn">&times;</span>
+             <h2>User Profile</h2>
+             <div class="profile-info">
+                <img id="profile-avatar" src="images/default-avatar.png" alt="User Avatar" class="profile-avatar">
+                 <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+                 <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+             </div>
+              <div class="profile-edit" style="display: none;">
+                    <h3>Edit Profile</h3>
+                    <div class="input-group"><label for="edit-name">Name:</label><input type="text" id="edit-name"></div>
+                     <p class="success-message" id="profile-update-success"></p>
+                    <button id="save-profile-btn" class="btn">Save Changes</button>
+                    <button id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="profile-actions">
+                     <button id="edit-profile-btn" class="btn btn-secondary"><i class='bx bxs-edit'></i> Edit Profile</button>
+                    <button id="logout-btn" class="btn btn-danger"><i class='bx bx-log-out'></i> Logout</button>
+             </div>
+         </div>
+     </div>
+
+     <main>
+        <section class="section-light" style="padding-top: 120px;"> <div class="container" data-aos="fade-up">
+                <h2 class="section-title">Platform Features</h2>
+                <p class="section-subtitle">Explore the tools and capabilities FinGenius offers to enhance your investment journey.</p>
+            </div>
+        </section>
+
+        <section class="section-dark">
+             <div class="container">
+                <div class="features-grid"> <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                         <i class='bx bx-analyse feature-icon'></i>
+                        <h3>Personalized Recommendations</h3>
+                        <p>Receive investment advice and strategies specifically tailored to your financial situation, goals, and risk tolerance, powered by AI analysis.</p>
+                    </div>
+                    
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                         <i class='bx bx-bot feature-icon'></i>
+                        <h3>Conversational AI Chatbot</h3>
+                        <p>Ask complex financial questions in natural language and get clear, concise answers and explanations from our advanced AI assistant.</p>
+                         <a href="chatbot.html" class="btn btn-secondary" style="margin-top: 15px;">Try Chatbot</a> </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="250">
+                         <i class='bx bx-shield-quarter feature-icon'></i>
+                        <h3>Risk Assessment Tool</h3>
+                        <p>Understand your investment risk profile through our guided assessment, helping you choose suitable investment options aligned with your comfort level.</p>
+                        <a href="index.html" class="btn btn-secondary" style="margin-top: 15px;">Use Now</a> </div>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                         <i class='bx bx-trending-up feature-icon'></i>
+                        <h3>Portfolio Optimization</h3>
+                        <p>Get AI-driven suggestions to optimize your existing investment portfolio for better performance and diversification based on current market data.</p>
+                        <a href="index.html" class="btn btn-secondary" style="margin-top: 15px;">Optimize Now</a> </div>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="350">
+                         <i class='bx bx-tachometer feature-icon'></i>
+                        <h3>User-Friendly Dashboard</h3>
+                        <p>Track your portfolio performance, view market insights, manage your profile, and access AI recommendations through an intuitive interface.</p>
+                         <a href="#" id="features-dashboard-link" class="btn btn-secondary" style="margin-top: 15px;">View Dashboard</a> </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                         <i class='bx bx-git-compare feature-icon'></i>
+                        <h3>Seamless Integrations</h3>
+                        <p>(Future Capability) Connect FinGenius with popular financial tools and platforms for a holistic view of your finances.</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="450">
+                        <i class='bx bx-book-open feature-icon'></i>
+                       <h3>Learning Resources</h3>
+                       <p>Access curated articles, guides, and essential financial calculators to enhance your financial literacy and planning.</p>
+                       <a href="video_resources.html" class="btn btn-secondary" style="margin-top: 15px;">View Now</a> </div>
+                   </div>
+                   <div class="feature-card" data-aos="fade-up" data-aos-delay="450">
+                    <i class='bx bx-line-chart feature-icon'></i>
+                   <h3>Real-Time Market Analysis</h3>
+                   <p>Stay informed with continuous monitoring of market trends, and key financial indicators relevant to your interests.</p>
+                   <a href="market_analysis.html" id="features-market_analysis-link" class="btn btn-secondary" style="margin-top: 15px;">View</a> </div>
+               </div>
+                </div>
+            </div>
+        </section>
+
+     </main>
+
+     <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="footer-year"></span> FinGenius AI. All rights reserved.</p>
+             <div class="footer-links">
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+             </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js" defer></script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+
+     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script src="js/firebase-auth.js" defer></script>
+    <script src="js/profile.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Footer Year
+            const yearSpan = document.getElementById('footer-year');
+            if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+            // Mobile Nav Toggle Logic
+            const menuIcon = document.getElementById('menu-icon');
+            const navbar = document.querySelector('.navbar');
+             if (menuIcon && navbar) {
+                menuIcon.onclick = () => { menuIcon.classList.toggle('bx-x'); navbar.classList.toggle('active'); };
+                navbar.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', (e) => { if (navbar.classList.contains('active') && e.target.closest('.navbar')) { menuIcon.classList.remove('bx-x'); navbar.classList.remove('active'); } });
+                 });
+                 document.addEventListener('click', (event) => { if (navbar.classList.contains('active')) { const header = document.querySelector('.header'); if (!header.contains(event.target)) { menuIcon.classList.remove('bx-x'); navbar.classList.remove('active'); } } });
+            }
+
+             // Initialize AOS
+             if (typeof AOS !== 'undefined') {
+                 AOS.init({ duration: 700, once: true, offset: 50, easing: 'ease-out-cubic' });
+             } else { console.warn("AOS library not loaded."); }
+
+             // Handle Dashboard Link Click (Check Login State) - Requires Firebase Auth to be loaded
+             const dashboardLink = document.getElementById('features-dashboard-link');
+             if (dashboardLink) {
+                 dashboardLink.addEventListener('click', (e) => {
+                     if (typeof firebase !== 'undefined' && firebase.auth().currentUser) {
+                         // User is logged in, allow navigation (assuming dashboard.html exists)
+                         window.location.href = 'dashboard.html'; // Or the correct dashboard page
+                     } else {
+                         // User not logged in, prevent navigation and show login
+                         e.preventDefault();
+                         const loginBtn = document.getElementById('login-btn');
+                         if (loginBtn) {
+                             loginBtn.click(); // Trigger the login overlay
+                         } else {
+                             alert("Please log in to access the dashboard."); // Fallback
+                         }
+                     }
+                 });
+             }
+
+        });
+    </script>
+     </body>
+</html>
